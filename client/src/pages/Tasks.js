@@ -82,15 +82,25 @@ const Tasks = () => {
                             <input type="checkbox" onClick={() => completeMutation.mutate({ ...todo, active: !todo.active })} checked={false} onChange={() => { }} />
                         )}
                         {todo.task}
-                        <button type="submit" className="edit-btn" onClick={(e) => {
-                            e.stopPropagation()
-                            setEditid(todo._id)
-                        }}>
-                            Update
-                        </button>
-                        <button type="button" className="edit-btn cancel-btn" onClick={() => deletetask.mutate(todo._id)}>
-                            Delete
-                        </button>
+                        <div className="button-container">
+                            <button
+                                type="submit"
+                                className="edit-btn"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setEditid(todo._id);
+                                }}
+                            >
+                                Update
+                            </button>
+                            <button
+                                type="button"
+                                className="cancel-btn"
+                                onClick={() => deletetask.mutate(todo._id)}
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </li>
                 }
                 )}
