@@ -1,0 +1,36 @@
+.EditTodoForm {
+    margin-bottom: 10px;
+  }
+  
+  .EditTodoForm .edit-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .EditTodoForm .edit-btns {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .EditTodoForm .edit-btn {
+    margin-left: 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .EditTodoForm .edit-btn.cancel-btn {
+    background-color: #f44336;
+  }
+  
+  .EditTodoForm .edit-btn:hover {
+    background-color: #45a049;
+  }

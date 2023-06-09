@@ -1,0 +1,101 @@
+.TodoWrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.TodoWrapper h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.TodoWrapper .TodoForm {
+  margin-bottom: 20px;
+}
+
+.TodoWrapper .TodoForm .todo-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.TodoWrapper .TodoForm .todo-btn {
+  margin-left: 10px;
+  padding: 10px 16px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.TodoWrapper .TodoForm .todo-btn:hover {
+  background-color: #45a049;
+}
+
+.TodoWrapper .Todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.TodoWrapper .Todo p {
+  margin: 0;
+  cursor: pointer;
+}
+
+.TodoWrapper .Todo p.completed {
+  text-decoration: line-through;
+}
+
+.TodoWrapper .Todo div {
+  display: flex;
+}
+
+.TodoWrapper .Todo div svg {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.TodoWrapper .EditTodoForm {
+  margin-bottom: 10px;
+}
+
+.TodoWrapper .EditTodoForm .edit-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.TodoWrapper .EditTodoForm .edit-btns {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.TodoWrapper .EditTodoForm .edit-btn {
+  margin-left: 10px;
+  padding: 10px 16px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.TodoWrapper .EditTodoForm .edit-btn.cancel-btn {
+  background-color: #f44336;
+}
+
+.TodoWrapper .EditTodoForm .edit-btn:hover {
+  background-color: #45a049;
+}
