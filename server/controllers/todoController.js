@@ -9,8 +9,8 @@ const Todo = require('../models/todoModel');
  * @access Public
  */
 exports.createTask = asyncHandler(async (req, res) => {
-    const {task, active} = req.body
-    const todo = await Todo.create({task, active});
+    const { task, active, dueDate } = req.body
+    const todo = await Todo.create({ task, active, dueDate });
     res.status(200).json({
         sucess: true,
         data: todo,
@@ -24,26 +24,25 @@ exports.createTask = asyncHandler(async (req, res) => {
  * @access Public
  */
 exports.updateTask = asyncHandler(async (req, res) => {
-    const {task, active} = req.body
-    const existTask = await Todo.findOne({ _id : req.params.id})
-    if(existTask){
+    const { task, active, dueDate } = req.body
+    const existTask = await Todo.findOne({ _id: req.params.id })
+    if (existTask) {
         existTask.task = task;
         existTask.active = active;
+        existTask.dueDate = dueDate;
         const updatedTask = await existTask.save();
         res.status(200).json({
             success: true,
             data: updatedTask,
             message: 'Task is updated successfully'
-        })  
-      }else{
+        })
+    } else {
         res.status(401).json({
             success: false,
             data: null,
             message: 'Task is Not Found'
         })
-
-      }
-      
+    }
 })
 
 /**
@@ -52,21 +51,21 @@ exports.updateTask = asyncHandler(async (req, res) => {
  * @access Public
  */
 exports.deleteTask = asyncHandler(async (req, res) => {
-    const existTask = await Todo.findOne({ _id : req.params.id})
-    if(existTask){
+    const existTask = await Todo.findOne({ _id: req.params.id })
+    if (existTask) {
         await Todo.deleteOne({ _id: req.params.id });
-            res.status(200).json({
+        res.status(200).json({
             success: true,
             message: 'Task is deleted successfully'
-        })  
-      }else{
+        })
+    } else {
         res.status(401).json({
             success: false,
             data: null,
             message: 'Task is Not Found'
         })
-      }
-      
+    }
+
 })
 
 /**
@@ -75,21 +74,21 @@ exports.deleteTask = asyncHandler(async (req, res) => {
  * @access Public
  */
 exports.getSingleTask = asyncHandler(async (req, res) => {
-    const existTask = await Todo.findOne({ _id : req.params.id})
-    if(existTask){
+    const existTask = await Todo.findOne({ _id: req.params.id })
+    if (existTask) {
         res.status(200).json({
             success: true,
-            data:existTask,
+            data: existTask,
             message: 'Task is fetched successfully'
-        })  
-      }else{
+        })
+    } else {
         res.status(401).json({
             success: false,
             data: null,
             message: 'Task is Not Found'
         })
-      }
-      
+    }
+
 })
 
 /**
@@ -98,19 +97,28 @@ exports.getSingleTask = asyncHandler(async (req, res) => {
  * @access Public
  */
 exports.getAllTasks = asyncHandler(async (req, res) => {
-    const allTasks = await Todo.find({})
-    if(allTasks){
+    const search = req.query.search;
+
+    const query = {}
+
+    if (search) {
+        const searchTerms = search.split(" ");
+
+        query.task = { $regex: new RegExp(searchTerms.join("|")) };
+    }
+    const allTasks = await Todo.find(query)
+    if (allTasks) {
         res.status(200).json({
             success: true,
-            data:allTasks,
+            data: allTasks,
             message: 'All Tasks are fetched successfully'
-        })  
-      }else{
+        })
+    } else {
         res.status(401).json({
             success: false,
             data: null,
             message: 'Task are Not Found'
         })
-      }
-      
+    }
+
 })
