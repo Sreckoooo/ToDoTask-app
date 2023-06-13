@@ -6,13 +6,14 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+
 const queryClient = new QueryClient();
 
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const addTask = (task) => {
-    setTodos((prevTodos) => [...prevTodos, task]);
+  const addTask = (task, dueDate) => {
+    setTodos((prevTodos) => [...prevTodos, task, dueDate]);
   };
 
   return (
