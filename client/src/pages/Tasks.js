@@ -57,15 +57,15 @@ const Tasks = () => {
         setPage((prevPage) => prevPage + 1);
     };
 
-    function formatDate (input) {
+    function formatDate(input) {
         var datePart = input.match(/\d+/g),
-        year = datePart[0].substring(2), // get only two digits
-        month = datePart[1], day = datePart[2];
-      
-        return day+'/'+month+'/'+year;
-      }
-      
-      formatDate ('2010/01/18'); // "18/01/10"
+            year = datePart[0].substring(2), // get only two digits
+            month = datePart[1], day = datePart[2];
+
+        return day + '/' + month + '/' + year;
+    }
+
+    formatDate('2010/01/18'); // "18/01/10"
 
 
     return (
@@ -89,7 +89,7 @@ const Tasks = () => {
                                 <input type="checkbox" onClick={() => completeMutation.mutate({ ...todo, active: !todo.active })} checked={false} onChange={() => { }} />
                             )}
                             <div>{todo.task}</div>
-                            <div>{new Date(todo.dueDate).toLocaleDateString()}</div>
+                            <div className="due-date">{new Date(todo.dueDate).toLocaleDateString()}</div>
                             <div className="button-container">
                                 <button
                                     type="submit"
@@ -138,19 +138,19 @@ const Tasks = () => {
 
 const useDebouncedValue = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
-  
+
     useEffect(() => {
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-  
-      return () => {
-        clearTimeout(handler);
-      };
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
     }, [value, delay]);
-  
+
     return debouncedValue;
-  };
+};
 
 
 export default Tasks;
