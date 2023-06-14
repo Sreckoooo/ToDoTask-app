@@ -3,7 +3,7 @@ import "../styles/Tasks.css";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import axios from "axios";
 import { EditTodoForm } from "../helpers/EditTodoForm";
-import Search from "../pages/SearchBar"
+import Search from "../helpers/SearchBar"
 
 
 const Tasks = () => {
@@ -57,17 +57,6 @@ const Tasks = () => {
         setPage((prevPage) => prevPage + 1);
     };
 
-    function formatDate(input) {
-        var datePart = input.match(/\d+/g),
-            year = datePart[0].substring(2), // get only two digits
-            month = datePart[1], day = datePart[2];
-
-        return day + '/' + month + '/' + year;
-    }
-
-    formatDate('2010/01/18'); // "18/01/10"
-
-
     return (
         <div className="tasks-container">
             <h1 className="tasks-title">All Tasks</h1>
@@ -78,7 +67,7 @@ const Tasks = () => {
                     {data.data.data.map((todo) => {
                         if (todo._id === editId) {
                             return <EditTodoForm key={todo._id} task={todo} onCancel={() => setEditid("")} onSubmit={(taskText, taskDate) => {
-                                updatetask.mutate({ id: todo._id, task: taskText, active: todo.active, dueDate: taskDate })
+                                updatetask.mutate({ ...todo, id: todo._id, task: taskText,  dueDate: taskDate })
 
                             }} />
                         }
@@ -88,7 +77,8 @@ const Tasks = () => {
                             ) : (
                                 <input type="checkbox" onClick={() => completeMutation.mutate({ ...todo, active: !todo.active })} checked={false} onChange={() => { }} />
                             )}
-                            <div>{todo.task}</div>
+                            <div>{todo.task}</div>  
+                            <div className="updated-date">Last Update: {todo.updatedDate ? todo.updatedDate.slice(0, 10) : 'No update yet'}</div>
                             <div className="due-date">{new Date(todo.dueDate).toLocaleDateString()}</div>
                             <div className="button-container">
                                 <button
