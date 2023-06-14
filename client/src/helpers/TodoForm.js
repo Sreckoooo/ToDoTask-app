@@ -8,7 +8,7 @@ export const TodoForm = () => {
   const [dueDate, setDueDate] = useState("");
   const addTodo = useMutation((todo) => {
     return axios.post("/api/task", { task: todo, dueDate: dueDate })
-      
+
   });
 
   const handleSubmit = (e) => {
@@ -43,8 +43,8 @@ export const TodoForm = () => {
         Add Task
       </button>
 
-      {addTodo.isError && <div>{addTodo.error.message}</div>}
-      {addTodo.isSuccess && <div>Uspešno dodan!</div>}
+      {addTodo.isError && <div className="error">{addTodo.error.message}</div>}
+      {addTodo.isSuccess && <div className="success">Uspešno dodan!</div>}
     </form>
   );
 };
