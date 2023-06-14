@@ -7,14 +7,8 @@ export const TodoForm = () => {
   const [value, setValue] = useState("");
   const [dueDate, setDueDate] = useState("");
   const addTodo = useMutation((todo) => {
-    axios
-      .post("/api/task", { task: todo, dueDate: dueDate })
-      .then((response) => {
-        console.log("Task added successfully");
-      })
-      .catch((error) => {
-        console.error("Error adding task:", error);
-      });
+    return axios.post("/api/task", { task: todo, dueDate: dueDate })
+      
   });
 
   const handleSubmit = (e) => {
@@ -35,16 +29,22 @@ export const TodoForm = () => {
       />
 
       <input
-        type="text"
+        type="date"
         className="todo-input"
         value={dueDate}
-        placeholder="Due date"
-        onChange={(e) => setDueDate(e.target.value)}
+        placeholder="Example: 2000-11-11"
+        onChange={(e) => {
+          setDueDate(e.target.value)
+          console.log(e.target.value)
+        }}
       />
 
       <button type="submit" className="todo-btn">
         Add Task
       </button>
+
+      {addTodo.isError && <div>{addTodo.error.message}</div>}
+      {addTodo.isSuccess && <div>Uspešno dodan!</div>}
     </form>
   );
 };
