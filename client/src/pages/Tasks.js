@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Tasks.css";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import axios from "axios";
@@ -48,7 +48,6 @@ const Tasks = () => {
             queryClient.invalidateQueries({ queryKey: ["todos"] });
         }
     });
-    console.log(data)
 
     const handlePreviousPage = () => {
         setPage((prevPage) => prevPage - 1);
@@ -57,6 +56,16 @@ const Tasks = () => {
     const handleNextPage = () => {
         setPage((prevPage) => prevPage + 1);
     };
+
+    function formatDate (input) {
+        var datePart = input.match(/\d+/g),
+        year = datePart[0].substring(2), // get only two digits
+        month = datePart[1], day = datePart[2];
+      
+        return day+'/'+month+'/'+year;
+      }
+      
+      formatDate ('2010/01/18'); // "18/01/10"
 
 
     return (
@@ -80,7 +89,7 @@ const Tasks = () => {
                                 <input type="checkbox" onClick={() => completeMutation.mutate({ ...todo, active: !todo.active })} checked={false} onChange={() => { }} />
                             )}
                             <div>{todo.task}</div>
-                            <div>{todo.dueDate}</div>
+                            <div>{new Date(todo.dueDate).toLocaleDateString()}</div>
                             <div className="button-container">
                                 <button
                                     type="submit"
