@@ -4,17 +4,18 @@ import "../styles/EditTodoForm.css";
 
 export const EditTodoForm = ({ task, onCancel,onSubmit}) => {
   const [value, setValue] = useState(task.task);
+  const [dueDate, setDueDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(value)
+    onSubmit(value, dueDate)
+    
    
   };
+ 
 
 
-
-
-  return (
+ return (
     <form className="EditTodoForm" onSubmit={handleSubmit}>
       <input
         type="text"
@@ -22,6 +23,13 @@ export const EditTodoForm = ({ task, onCancel,onSubmit}) => {
         value={value}
         placeholder="Update Task"
         onChange={(e) => setValue(e.target.value)}
+      />
+      <input
+        type="date"
+        className="edit-input"
+        value={dueDate}
+        placeholder="Update Date"
+        onChange={(e) => setDueDate(e.target.value)}
       />
       <div className="edit-btns">
         <button type="submit" className="edit-btn">
