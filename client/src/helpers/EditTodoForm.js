@@ -4,7 +4,7 @@ import "../styles/EditTodoForm.css";
 
 export const EditTodoForm = ({ task, onCancel,onSubmit}) => {
   const [value, setValue] = useState(task.task);
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(task.dueDate.slice(0,10));
 
   const handleSubmit = (e) => {
     e.preventDefault();
