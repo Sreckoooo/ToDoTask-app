@@ -77,8 +77,8 @@ const Tasks = () => {
                 <ul className="tasks-list">
                     {data.data.data.map((todo) => {
                         if (todo._id === editId) {
-                            return <EditTodoForm key={todo._id} task={todo} onCancel={() => setEditid("")} onSubmit={(taskText) => {
-                                updatetask.mutate({ id: todo._id, task: taskText, active: todo.active, dueDate: todo.dueDate })
+                            return <EditTodoForm key={todo._id} task={todo} onCancel={() => setEditid("")} onSubmit={(taskText, taskDate) => {
+                                updatetask.mutate({ id: todo._id, task: taskText, active: todo.active, dueDate: taskDate })
 
                             }} />
                         }
