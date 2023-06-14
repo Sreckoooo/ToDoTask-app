@@ -1,7 +1,7 @@
 import React from "react";
 import { TodoForm } from "./TodoForm";
 import "../styles/TodoWrapper.css";
-import Tasks from '../pages/Tasks';
+import Recents from '../pages/Recents';
 
 
 
@@ -12,7 +12,7 @@ const TodoWrapper = () => {
   return (
     <div className="TodoWrapper">
       <TodoForm />
-      <Tasks  />
+      <Recents  />
     </div>
   );
   }
