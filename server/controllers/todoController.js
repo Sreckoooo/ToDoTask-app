@@ -24,12 +24,13 @@ exports.createTask = asyncHandler(async (req, res) => {
  * @access Public
  */
 exports.updateTask = asyncHandler(async (req, res) => {
-    const { task, active, dueDate } = req.body
+    const { task, active, dueDate} = req.body
     const existTask = await Todo.findOne({ _id: req.params.id })
     if (existTask) {
         existTask.task = task;
         existTask.active = active;
         existTask.dueDate = dueDate;
+        existTask.updatedDate = new Date();
         const updatedTask = await existTask.save();
         res.status(200).json({
             success: true,
