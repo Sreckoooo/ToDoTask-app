@@ -90,8 +90,9 @@
 }
 
 .updated-date {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
   color: blue;
   font-size: 14px;
-  margin-top: 50px;
-  margin-right: 700px; 
 }
