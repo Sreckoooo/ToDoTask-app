@@ -18,7 +18,7 @@
 .tasks-item {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   padding: 10px;
   background-color: #f5f5f5;
   border-radius: 5px;
@@ -95,4 +95,26 @@
   left: 10px;
   color: blue;
   font-size: 14px;
+}
+
+.created-date {
+  position: absolute;
+  bottom: -11px;
+  left: 10px;
+  font-size: 14px;
+  color: gray;
+}
+
+.time-btn {
+  background-color: #ffd700; 
+  color: #ffffff; 
+  border: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.time-btn:hover {
+  background-color: #ffdf00;
 }
