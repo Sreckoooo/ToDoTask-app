@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import "../styles/Tasks.css";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import axios from "axios";
+import { EditUreForm } from "../helpers/EditUreForm";
 import { EditTodoForm } from "../helpers/EditTodoForm";
 import Search from "../helpers/SearchBar"
+
 
 
 const Tasks = () => {
     const queryClient = useQueryClient()
     const [page, setPage] = useState(1);
     const [editId, setEditid] = useState("");
+    const [ureEditId, setUreEditid] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearchTerm = useDebouncedValue(searchTerm, 600);
 
@@ -20,6 +23,17 @@ const Tasks = () => {
             setEditid("")
             queryClient.invalidateQueries({
                 queryKey: ["todos"]
+            })
+        }
+    })
+
+    const createtime = useMutation({
+        mutationFn: (Create) =>
+            axios.put('/api/time/' + Create.id, Create),
+        onSuccess: () => {
+            setUreEditid("")
+            queryClient.invalidateQueries({
+                queryKey: ["ures"]
             })
         }
     })
@@ -35,7 +49,7 @@ const Tasks = () => {
     })
 
     const { isLoading, data } = useQuery({
-        queryKey: ['todos', page, debouncedSearchTerm],
+        queryKey: ['todos', 'ures', page, debouncedSearchTerm],
         queryFn: async () => {
             return axios.get('/api/task?page=' + page + "&search=" + encodeURIComponent(debouncedSearchTerm))
         }
@@ -64,11 +78,16 @@ const Tasks = () => {
             {!isLoading && data && <>
 
                 <ul className="tasks-list">
-                    {data.data.data.map((todo) => {
+                    {data.data.data.map((todo, ure) => {
                         if (todo._id === editId) {
                             return <EditTodoForm key={todo._id} task={todo} onCancel={() => setEditid("")} onSubmit={(taskText, taskDate) => {
-                                updatetask.mutate({ ...todo, id: todo._id, task: taskText,  dueDate: taskDate })
+                                updatetask.mutate({ ...todo, id: todo._id, task: taskText, dueDate: taskDate })
 
+                            }} />
+                        }
+                        if (todo._id === ureEditId) {
+                            return <EditUreForm key={todo._id} taskid={todo} onCancel={() => setUreEditid("")} onSubmit={(timeDate, timeNumber) => {
+                                createtime.mutate({ ...todo, id: todo._id, date: timeDate, time: timeNumber })
                             }} />
                         }
                         return <li key={todo._id} className="tasks-item">
@@ -77,10 +96,21 @@ const Tasks = () => {
                             ) : (
                                 <input type="checkbox" onClick={() => completeMutation.mutate({ ...todo, active: !todo.active })} checked={false} onChange={() => { }} />
                             )}
-                            <div>{todo.task}</div>  
+                            <div>{todo.task}</div>
                             <div className="updated-date">Last Update: {todo.updatedDate ? todo.updatedDate.slice(0, 10) : 'No update yet'}</div>
+                            <div className="created-date">Created: {todo.createdDate ? todo.createdDate.slice(0, 10) : ''}</div>
                             <div className="due-date">{new Date(todo.dueDate).toLocaleDateString()}</div>
                             <div className="button-container">
+                                <button
+                                    type="submit"
+                                    className="time-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setUreEditid(todo._id);
+                                    }}
+                                >
+                                    Time
+                                </button>
                                 <button
                                     type="submit"
                                     className="edit-btn"
