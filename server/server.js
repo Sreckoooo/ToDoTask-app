@@ -4,6 +4,7 @@ const colors = require("colors");
 const morgan = require("morgan");
 const path = require("path");
 const todoRoute = require("./routes/todo");
+const ureRoute = require("./routes/ure");
 
 const connectDB = require("./config/db");
 dotenv.config({ path: "./env" });
@@ -18,6 +19,7 @@ if (process.env.MODE === "development") {
 const PORT = process.env.PORT || 5000;
 
 app.use("/api/task", todoRoute);
+app.use("/api/time", ureRoute);
 
 app.get("/", (req, res) => {
   res.send("API is running good");
