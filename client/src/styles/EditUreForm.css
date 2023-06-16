@@ -1,0 +1,36 @@
+.EditUreForm {
+    margin-bottom: 10px;
+  }
+  
+  .EditUreForm .edit-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .EditUreForm .edit-btns {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .EditUreForm .edit-btn {
+    margin-left: 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .EditUreForm .edit-btn.cancel-btn {
+    background-color: #f44336;
+  }
+  
+  .EditUreForm .edit-btn:hover {
+    background-color: #45a049;
+  }
