@@ -10,7 +10,7 @@ const Todo = require('../models/todoModel');
  */
 exports.createTask = asyncHandler(async (req, res) => {
     const { task, active, dueDate } = req.body
-    const todo = await Todo.create({ task, active, dueDate });
+    const todo = await Todo.create({ task, active, dueDate, updatedDate:new Date(), createdDate:new Date() });
     res.status(200).json({
         sucess: true,
         data: todo,
@@ -24,13 +24,14 @@ exports.createTask = asyncHandler(async (req, res) => {
  * @access Public
  */
 exports.updateTask = asyncHandler(async (req, res) => {
-    const { task, active, dueDate} = req.body
+    const { task, active, dueDate, createdDate} = req.body
     const existTask = await Todo.findOne({ _id: req.params.id })
     if (existTask) {
         existTask.task = task;
         existTask.active = active;
         existTask.dueDate = dueDate;
         existTask.updatedDate = new Date();
+        existTask.createdDate = createdDate;
         const updatedTask = await existTask.save();
         res.status(200).json({
             success: true,
